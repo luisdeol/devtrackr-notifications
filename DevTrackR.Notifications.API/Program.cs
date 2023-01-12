@@ -1,4 +1,5 @@
 using DevTrackR.Notifications.API.Infrastructure;
+using DevTrackR.Notifications.API.Subscribers;
 using SendGrid.Extensions.DependencyInjection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddSendGrid(options =>
 {
     options.ApiKey = configuration.GetSection("SendGrid:ApiKey").Value;
 });
+
+builder.Services.AddHostedService<ShippingOrderUpdatedSubscriber>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
